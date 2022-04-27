@@ -1,29 +1,60 @@
-import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react'
+import Moment from 'moment';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import ErrorBoundary from 'react-native-error-boundary';
 
 
-const UserDetail = ({ item, navigation }) => {
+const UserDetail = ({ route }) => {
+    const { item } = route.params;
+
+    const CustomFallback = () => (
+        <View>
+            <Text>Something happened!</Text>
+        </View>
+    )
+
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Details', { id: item?.id })}>
+        <ErrorBoundary FallbackComponent={CustomFallback}>
             <View style={styles.root}>
-                <Image style={styles.image} source={{ uri: item.picture.medium }} />
-                <View>
+                <Image style={styles.image} source={{ uri: item.picture.large }} />
+                <View style={{ alignItems: 'center' }}>
                     <Text style={styles.name}>{`${item.name.first} ${item.name.last}`}</Text>
-                    <Text style={styles.location}>{`${item.location.country} `}</Text>
+                    <Text style={styles.location}>{`${item.location.city} , ${item.location.country} `}</Text>
 
                 </View>
+                <View style={styles.line} />
+
+                <View style={{
+                    marginHorizontal: 10, paddingHorizontal: 15
+                }}>
+
+                    <Text style={styles.location}>{`Email : ${item.email} `}</Text>
+                    <Text style={styles.location}>{`Phone : ${item.phone} `}</Text>
+                    <Text numberOfLines={3} style={styles.location}>{`Address : ${item.location.street?.number}, ${item.location.street?.name}, ${item.location.city},  ${item.location.state} `}</Text>
+                    <Text style={styles.location}>{`DOB : ${getDateFromServerString(item.dob.date)} `}</Text>
+                    <Text style={styles.location}>{`Age : ${item.dob.age} `}</Text>
+
+
+                </View>
+                <View style={styles.line} />
+
             </View>
-        </TouchableOpacity>
+        </ErrorBoundary>
 
     );
 }
 
+getDateFromServerString = (dateString) => {
+    Moment.locale('en');
+    return Moment(new Date(dateString).toISOString().substring(0, 10)).format('DD MMM yyyy')
+}
+
+
+
 const styles = StyleSheet.create({
 
     root: {
-        marginHorizontal: 10,
-        marginBottom: 10,
-        flexDirection: 'row',
+        margin: 15,
         alignItems: 'center',
         shadowColor: 'black',
         shadowOpacity: 0.1,
@@ -31,10 +62,11 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 3,
         backgroundColor: 'white',
-        borderRadius: 5
+        borderRadius: 5,
+        flex: 1
     },
     image: {
-        width: 50,
+        width: 200,
         aspectRatio: 1,
         margin: 10,
         borderRadius: 100,
@@ -43,14 +75,26 @@ const styles = StyleSheet.create({
 
     },
     name: {
-        fontSize: 14,
-        fontWeight: 'bold'
+        marginTop: 10,
+        fontSize: 20,
+        // fontWeight: 'bold'
     },
     location: {
-        fontSize: 12,
+        fontSize: 14,
+        marginBottom: 10,
     },
     rating: {
         // marginLeft:10
+    },
+
+    separator: {
+        height: 10,
+        flex: 1
+
+    },
+    line: {
+        alignSelf: 'stretch', marginHorizontal: 10, marginTop: 10,
+        borderTopWidth: StyleSheet.hairlineWidth, padding: 10
     }
 });
 
