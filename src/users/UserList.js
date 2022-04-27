@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import UserDetail from './UserDetail';
+import UserListItem from './UserListItem';
 import { fetchUsers } from './usersSlice';
 
 
@@ -22,7 +22,7 @@ const UserListScreen = ({ navigation }) => {
                 data={users}
                 keyExtractor={(result) => result.login.uuid}
                 renderItem={({ item }) =>
-                    <UserDetail item={item}></UserDetail>
+                    <UserListItem item={item}></UserListItem>
                 }
             ></FlatList>
         </View>
