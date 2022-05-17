@@ -10,10 +10,12 @@ export const usersSlice = createSlice({
     reducers: {
         fetchUsers: state => {state.fetching = true},
         fetchUsersSuccess: (state, action) => {
-            state.fetching = true
+            state.fetching = false
             state.data = action.payload
         },
-        fetchUsersFailure: state => {state.fetching = true}
+        fetchUsersFailure: state => {
+            state.fetching = false
+        }
     }
 
 })

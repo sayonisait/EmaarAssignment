@@ -1,7 +1,7 @@
 
 import { call, put, takeEvery } from 'redux-saga/effects';
 import client from '../api/client';
-import { fetchUsersSuccess } from './usersSlice';
+import { fetchUsersFailure, fetchUsersSuccess } from './usersSlice';
 
 function* workFetchUsers({payload}) {
     const response = yield call(() => client.get('', {
@@ -10,9 +10,15 @@ function* workFetchUsers({payload}) {
             page: payload
         }
     }));
+    try{
     const users = response.data.results;
     console.log(users);
     yield put(fetchUsersSuccess(users))
+
+    }catch(error ){
+        yield put(fetchUsersFailure(error))
+
+    }
 }
 
 function* usersSaga() {
