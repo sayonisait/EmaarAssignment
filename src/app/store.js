@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import usersSaga from "../users/usersSaga";
 import usersReducer from "../users/usersSlice";
 import createSagaMiddleware from "@redux-saga/core";
