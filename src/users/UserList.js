@@ -25,7 +25,7 @@ const UserListScreen = ({ navigation }) => {
                     renderItem={({ item }) =>
                         <UserListItem item={item}></UserListItem>
                     }
-                    ListEmptyComponent={<Text style={{ alignSelf: 'center', padding: 10 }}>Something went wrong</Text>}
+                    ListEmptyComponent={<Text style={styles.emptyListContent}>Something went wrong</Text>}
                 ></FlatList>}
 
 
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 10,
 
+    },
+    emptyListContent: {
+        alignSelf: 'center',
+        padding: 10
     }
 
 });
