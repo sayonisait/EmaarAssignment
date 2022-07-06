@@ -1,45 +1,39 @@
 import React, { useEffect } from 'react'
 import Moment from 'moment';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import ErrorBoundary from 'react-native-error-boundary';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 
 const UserDetail = ({ route }) => {
     const { item } = route.params;
 
-    const CustomFallback = () => (
-        <View>
-            <Text>Something happened!</Text>
-        </View>
-    )
 
     return (
-        <ErrorBoundary FallbackComponent={CustomFallback}>
-            <View style={styles.root}>
-                <Image style={styles.image} source={{ uri: item.picture.large }} />
-                <View style={{ alignItems: 'center' }}>
-                    <Text style={styles.name}>{`${item.name.first} ${item.name.last}`}</Text>
-                    <Text style={styles.location}>{`${item.location.city} , ${item.location.country} `}</Text>
 
-                </View>
-                <View style={styles.line} />
-
-                <View style={{
-                    marginHorizontal: 10, paddingHorizontal: 15
-                }}>
-
-                    <Text style={styles.location}>{`Email : ${item.email} `}</Text>
-                    <Text style={styles.location}>{`Phone : ${item.phone} `}</Text>
-                    <Text numberOfLines={3} style={styles.location}>{`Address : ${item.location.street?.number}, ${item.location.street?.name}, ${item.location.city},  ${item.location.state} `}</Text>
-                    <Text style={styles.location}>{`DOB : ${getDateFromServerString(item.dob.date)} `}</Text>
-                    <Text style={styles.location}>{`Age : ${item.dob.age} `}</Text>
-
-
-                </View>
-                <View style={styles.line} />
+        <View style={styles.root}>
+            <Image style={styles.image} source={{ uri: item.pictures.large }} />
+            <View style={{ alignItems: 'center' }}>
+                <Text style={styles.name}>{`${item.name.first} ${item.name.last}`}</Text>
+                <Text style={styles.location}>{`${item.location.city} , ${item.location.country} `}</Text>
 
             </View>
-        </ErrorBoundary>
+            <View style={styles.line} />
+
+            <View style={{
+                marginHorizontal: 10, paddingHorizontal: 15
+            }}>
+
+                <Text style={styles.location}>{`Email : ${item.email} `}</Text>
+                <Text style={styles.location}>{`Phone : ${item.phone} `}</Text>
+                <Text numberOfLines={3} style={styles.location}>{`Address : ${item.location.street?.number}, ${item.location.street?.name}, ${item.location.city},  ${item.location.state} `}</Text>
+                <Text style={styles.location}>{`DOB : ${getDateFromServerString(item.dob.date)} `}</Text>
+                <Text style={styles.location}>{`Age : ${item.dob.age} `}</Text>
+
+
+            </View>
+            <View style={styles.line} />
+
+        </View>
 
     );
 }
