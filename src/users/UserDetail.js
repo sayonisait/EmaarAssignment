@@ -11,7 +11,7 @@ const UserDetail = ({ route }) => {
     return (
 
         <View style={styles.root}>
-            <Image style={styles.image} source={{ uri: item.pictures.large }} />
+            <Image style={styles.image} source={{ uri: item.picture.large }} />
             <View style={{ alignItems: 'center' }}>
                 <Text style={styles.name}>{`${item.name.first} ${item.name.last}`}</Text>
                 <Text style={styles.location}>{`${item.location.city} , ${item.location.country} `}</Text>
